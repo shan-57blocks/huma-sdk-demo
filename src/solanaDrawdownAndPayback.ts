@@ -69,6 +69,23 @@ const submitReceivable = async (
   console.log('Submit receivable result:', txResult);
 };
 
+const drawdown = async (
+  connection: Connection,
+  keypair: Keypair,
+  solanaHumaContext: HumaSolanaContext
+) => {
+  const humaSolanaProgramHelper = new HumaSolanaProgramHelper({
+    solanaContext: solanaHumaContext
+  });
+
+  const tx = await humaSolanaProgramHelper.buildDrawdownTransaction(
+    new BN(10000000)
+  );
+
+  const txResult = await sendAndConfirmTransaction(connection, tx, [keypair]);
+  console.log('Drawdown result:', txResult);
+};
+
 const payback = async (
   connection: Connection,
   keypair: Keypair,
@@ -87,21 +104,23 @@ const payback = async (
   console.log('Payback result:', txResult);
 };
 
-const drawdown = async (
+const declarePayment = async (
   connection: Connection,
   keypair: Keypair,
-  solanaHumaContext: HumaSolanaContext
+  solanaHumaContext: HumaSolanaContext,
+  referenceId: string
 ) => {
-  const humaSolanaProgramHelper = new HumaSolanaProgramHelper({
+  const humaReceivableHelper = new HumaSolanaReceivableHelper({
     solanaContext: solanaHumaContext
   });
 
-  const tx = await humaSolanaProgramHelper.buildDrawdownTransaction(
-    new BN(10000000)
+  const tx = await humaReceivableHelper.buildDeclarePaymentTransaction(
+    referenceId,
+    new BN(5000000)
   );
 
   const txResult = await sendAndConfirmTransaction(connection, tx, [keypair]);
-  console.log('Drawdown result:', txResult);
+  console.log('Declare payment result:', txResult);
 };
 
 const getAccountInfo = async (solanaHumaContext: HumaSolanaContext) => {
@@ -144,4 +163,5 @@ const getAccountInfo = async (solanaHumaContext: HumaSolanaContext) => {
   console.log('***************');
   console.log('Account info after payback:');
   await getAccountInfo(solanaHumaContext);
+  await declarePayment(connection, keypair, solanaHumaContext, referenceId);
 })();
