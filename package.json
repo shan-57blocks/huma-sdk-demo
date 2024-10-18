@@ -21,10 +21,15 @@
     "format": "prettier --write .",
     "test": "jest --silent",
     "test:coverage": "jest --verbose --coverage",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "solana-drawdown-payback": "ts-node src/solanaDrawdownAndPayback.ts"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.30.1",
     "@huma-finance/sdk": "0.0.62-beta.637",
+    "@solana/spl-token": "^0.4.9",
+    "@solana/web3.js": "^1.95.4",
+    "@web3-react/walletconnect": "^8.2.3",
     "bs58": "^6.0.0",
     "dotenv": "^8.2.0"
   },
@@ -32,6 +37,7 @@
     "@types/jest": "^29.5.1",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
+    "@web3-react/types": "^8.2.3",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-node": "^11.1.0",
