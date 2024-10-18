@@ -1,4 +1,4 @@
-# Soroban tx simulation example
+# Huma SDK demo
 
 ## Install dependencies
 
@@ -6,8 +6,12 @@
 yarn install
 ```
 
-## Run the simulation example
+## Solana drawdown and payback
 
-```
-yarn simulation
-```
+1, Set TEST_PRIVATE_KEY in .env
+
+2, Get your account approved as borrower
+
+3, Make sure there is sol token in your account
+
+4, Run `yarn solana-drawdown-payback`
